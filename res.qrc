@@ -1,0 +1,35 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>pic/icon-关闭-默认.png</file>
+        <file>pic/icon-关闭-悬停点击.png</file>
+        <file>pic/icon-光盘.png</file>
+        <file>pic/icon-光盘复制-默认.png</file>
+        <file>pic/icon-光盘复制-悬停点击.png</file>
+        <file>pic/icon-镜像.png</file>
+        <file>pic/icon-镜像刻录-默认.png</file>
+        <file>pic/icon-镜像刻录-悬停点击.png</file>
+        <file>pic/icon-刻录机.png</file>
+        <file>pic/icon-清空-默认.png</file>
+        <file>pic/icon-清空-悬停点击.png</file>
+        <file>pic/icon-删除-默认.png</file>
+        <file>pic/icon-删除-悬停点击.png</file>
+        <file>pic/icon-设置-默认.png</file>
+        <file>pic/icon-设置-悬停点击.png</file>
+        <file>pic/icon-数据刻录-默认.png</file>
+        <file>pic/icon-数据刻录-悬停点击.png</file>
+        <file>pic/icon-添加-默认.png</file>
+        <file>pic/icon-添加-悬停点击.png</file>
+        <file>pic/icon-新建文件-默认.png</file>
+        <file>pic/icon-新建文件-悬停点击.png</file>
+        <file>pic/icon-最大化-默认.png</file>
+        <file>pic/icon-最大化-悬停点击.png</file>
+        <file>pic/icon-最小化-默认.png</file>
+        <file>pic/icon-最小化-悬停点击.png</file>
+        <file>pic/logo-小.png</file>
+        <file>pic/logo.ico</file>
+        <file>pic/logo.png</file>
+        <file>pic/icon-侧边背景.png</file>
+        <file>pic/icon-right.png</file>
+        <file>pic/icon-error.png</file>
+    </qresource>
+</RCC>
