@@ -62,6 +62,18 @@ void property::set_copy_to_disk(QString ret)
     copy_to_disk = "";
     copy_to_disk += ret;
 }
+void property::set_filter_hide(bool ret)
+{
+    filter_hide = ret;
+}
+void property::set_filter_link(bool ret)
+{
+    filter_link = ret;
+}
+void property::set_filter_deform_link(bool ret)
+{
+    filter_deform_link = ret;
+}
 
 
 QString property::get_clean_disk()
@@ -115,4 +127,16 @@ QString property::get_copy_iso()
 QString property::get_copy_to_disk()
 {
     return copy_to_disk;
+}
+bool property::get_filter_hide()
+{
+    return filter_hide;
+}
+bool property::get_filter_link()
+{
+    return filter_link;
+}
+bool property::get_filter_deform_link()
+{
+    return filter_deform_link;
 }

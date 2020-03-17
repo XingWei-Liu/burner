@@ -5,6 +5,7 @@
 #include <QFileSystemModel>
 #include <QComboBox>
 #include <QCheckBox>
+#include <QStandardItem>
 
 #include "property.h"
 
@@ -21,6 +22,7 @@ public:
     ~p_data();
 
     void create_ui();
+
 private slots:
     void on_add_clicked();
 
@@ -38,7 +40,6 @@ private slots:
 
     void setting_exit();
     void setting_ok();
-
 private:
     Ui::p_data *ui;
     class property pro;
@@ -48,6 +49,8 @@ private:
     QCheckBox *append;
     QCheckBox *burn_proof;
     QCheckBox *simulation;
+
+    QList<QStandardItem *> items;
 };
 
 #endif // P_DATA_H

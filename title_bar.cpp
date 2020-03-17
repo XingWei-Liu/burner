@@ -25,8 +25,10 @@ TitleBar::TitleBar(QWidget *parent)
     m_pMaximizeButton = new QPushButton(this);
     m_pCloseButton = new QPushButton(this);
 
-    m_pIconLabel->setFixedSize(20, 20);
-    m_pIconLabel->setScaledContents(true);
+//    m_pIconLabel->setFixedSize(20, 20);
+//    m_pIconLabel->setScaledContents(true);
+    m_pIconLabel->setFixedSize(35,35);
+    m_pIconLabel->setStyleSheet("QLabel{background-image: url(:/new/prefix1/pic/logo.png);background-color:rgb(255,255,255);background-repeat: no-repeat;}");
 
     m_pTitleLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
@@ -70,7 +72,10 @@ TitleBar::TitleBar(QWidget *parent)
 
     menu->addAction(QIcon(""),"popup",this,SLOT(popup()));
     menu->addAction(QIcon(""),"clean",this,SLOT(clean()));
+    menu->addSeparator();
     menu->addAction(QIcon(""),"MD5",this,SLOT(md5()));
+    menu->addAction(QIcon(""),"filter",this, SLOT(filter()));
+    menu->addSeparator();
     menu->addAction(QIcon(""),"help",this,SLOT(help()));
     menu->addAction(QIcon(""),"about",this,SLOT(about()));
 
@@ -231,7 +236,7 @@ void TitleBar::clean()
     clean_dialog->setFixedSize(400, 400);
 
     QLabel *icon = new QLabel();
-    icon->setFixedSize(30,30);
+    icon->setFixedSize(35,35);
     icon->setStyleSheet("QLabel{background-image: url(:/new/prefix1/pic/logo.png);background-color:rgb(233, 233, 233);background-repeat: no-repeat;}");
     QLabel *title = new QLabel("kylin-burner");
     title->setFixedSize(80,30);
@@ -336,6 +341,58 @@ void TitleBar::md5()
     check_dialog->setModal(true);
     check_dialog->show();
 }
+void TitleBar::filter()
+{
+    filter_dialog = new QDialog();
+    filter_dialog->setWindowFlags(Qt::FramelessWindowHint | windowFlags());
+    filter_dialog->setFixedSize(400, 400);
+
+    QLabel *icon = new QLabel();
+    icon->setFixedSize(30,30);
+    icon->setStyleSheet("QLabel{background-image: url(:/new/prefix1/pic/logo.png);background-color:rgb(233, 233, 233);background-repeat: no-repeat;}");
+    QLabel *title = new QLabel("kylin-burner");
+    title->setFixedSize(80,30);
+    title->setStyleSheet("QLabel{background-color:rgb(233, 233, 233);background-repeat: no-repeat;color:rgb(0, 0, 0);font: 14px;}");
+    QPushButton *close = new QPushButton();
+    close->setFixedSize(30,30);
+    close->setStyleSheet("QPushButton{border-image: url(:/new/prefix1/pic/icon-关闭-默认.png);border:none;background-color:rgb(233, 233, 233);border-radius: 4px;}"
+                                "QPushButton:hover{border-image: url(:/new/prefix1/pic/icon-关闭-悬停点击.png);border:none;background-color:rgb(248, 100, 87);border-radius: 4px;}");
+
+    connect(close, SIGNAL(clicked(bool)), this, SLOT(filter_exit()));
+
+    QHBoxLayout *titlebar = new QHBoxLayout();
+    titlebar->addWidget(icon);
+    titlebar->addSpacing(10);
+    titlebar->addWidget(title);
+    titlebar->addStretch();
+    titlebar->addWidget(close);
+    QVBoxLayout *mainWidgetLayout = new QVBoxLayout(filter_dialog);
+    QLabel *filter_label = new QLabel("filter");
+    filter_label->setFixedSize(80,30);
+    filter_label->setStyleSheet("QLabel{background-color:rgb(233, 233, 233);background-repeat: no-repeat;color:rgb(0, 0, 0);font: 24px;}");
+
+    hide_check = new QCheckBox();
+    hide_check->setText("Checking discs with MD5 files");
+    hide_check->setChecked(false);
+    link_check = new QCheckBox("link");
+    link_check->setChecked(false);
+    deform_link = new QCheckBox("deform link");
+    deform_link->setChecked(false);
+
+    mainWidgetLayout->addLayout(titlebar);
+    mainWidgetLayout->addWidget(filter_label);
+    mainWidgetLayout->addSpacing(50);
+    mainWidgetLayout->addWidget(hide_check);
+    mainWidgetLayout->addSpacing(20);
+    mainWidgetLayout->addWidget(link_check);
+    mainWidgetLayout->addSpacing(20);
+    mainWidgetLayout->addWidget(deform_link);
+    mainWidgetLayout->addStretch();
+
+    filter_dialog->setModal(true);
+    filter_dialog->show();
+
+}
 void TitleBar::help()
 {
 
@@ -366,4 +423,11 @@ void TitleBar::check_exit()
 {
     check_dialog->close();
 }
+void TitleBar::filter_exit()
+{
+    pro.set_filter_hide(hide_check->isChecked());
+    pro.set_filter_link(link_check->isChecked());
+    pro.set_filter_deform_link(deform_link->isChecked());
 
+    filter_dialog->close();
+}

@@ -1,4 +1,5 @@
 #include <QDialog>
+#include <QList>
 #include <QFileDialog>
 #include <QLineEdit>
 #include <QDebug>
@@ -48,26 +49,6 @@ void p_data::create_ui()
                            "QPushButton:pressed{background-image: url(:/new/prefix1/pic/icon-新建文件-悬停点击.png);background-color:rgb(65, 95, 196);background-repeat: no-repeat;background-position:left;border:none;color:rgb(0, 0, 0);font: 14px;border-radius: 4px;}");
     ui->filefilter->setStyleSheet("QPushButton{background-color:rgb(255, 255, 255);background-repeat: no-repeat;border:none;color:rgb(65, 95, 196);font: 14px;}");
 
-
-    data_model = new QFileSystemModel;
-    //data_model->setRootPath(QDir::currentPath());
-    data_model->setRootPath("/home/test");
-
-
-    ui->treeView->setModel(data_model);
-    //ui->treeView->setRootIndex(data_model->index(QDir::currentPath()));
-    ui->treeView->setRootIndex(data_model->index("/home/test/"));
-    ui->treeView->setColumnWidth(0,400);
-/*
-    QStringList list;
-    list.append("name");
-    list.append("size");
-    list.append("type");
-    list.append("path");
-
-    QStandardItemModel *itemmodel = new QStandardItemModel();
-    itemmodel->setHorizontalHeaderLabels(list);
-*/
     ui->label_2->setFixedSize(75,30);
     ui->label_3->setFixedSize(75,30);
     ui->comboBox->setFixedSize(310,30);
@@ -81,6 +62,52 @@ void p_data::create_ui()
     ui->start_burner->setStyleSheet("QPushButton{background-color:rgb(61, 107, 229);font: 14px;border-radius: 4px;color: rgb(255,255,255);}"
                            "QPushButton:hover{background-color:rgb(107, 142, 235);font: 14px;border-radius: 4px;color: rgb(255,255,255);}"
                            "QPushButton:pressed{border:none;background-color:rgb(65, 95, 196);font: 14px;border-radius: 4px;color: rgb(255,255,255);}");
+
+    data_model = new QFileSystemModel;
+    data_model->setRootPath(QDir::currentPath());
+    data_model->setRootPath("/home/test");
+
+
+//    QDir myFile("../burn-test/pic/");
+//    QStandardItemModel *itemmodel = new QStandardItemModel();
+//    ui->treeView->setModel(itemmodel);
+//    QStandardItem *item = new QStandardItem();
+//    items.push_back(item);//添加QStandardItemModel信息
+
+//    itemmodel->appendRow(items);//插入父节点信息
+//    QList<QStandardItem *> childItems;//List容器
+//    int index;
+//    QString filename;
+//    for(int i=2 ; i<myFile.count(); i++)
+//    {
+//        filename=myFile[i];//myFile[i]为第i个文件名，前两个分别是"."和".."目录标志，在这里不使用
+//        index=filename.lastIndexOf(".");//设置"."的标记，一般扩展名在最后一个"."之后
+//        filename.truncate(index);//去除扩展名
+//        QStandardItem *item = new QStandardItem(filename);
+//        childItems.push_back(item);//插入数据
+//    }
+//        items.at(0)->appendRows(childItems);//插入子节点
+    //ui->treeView->setRootIndex(data_model->index(QDir::currentPath()));
+
+    ui->treeView->setModel(data_model);
+    ui->treeView->setRootIndex(data_model->index("/home/test/"));
+    ui->treeView->setColumnWidth(0,400);
+/*
+    QStringList list;
+    list.append("name");
+    list.append("size");
+    list.append("t
+ype");
+    list.append("path");
+
+    QStandardItemModel *itemmodel = new QStandardItemModel();
+    itemmodel->setHorizontalHeaderLabels(list);
+*/
+//    QStandardItemModel *itemmodel = new QStandardItemModel();
+//    ui->treeView->setModel(itemmodel);
+//    QStandardItem *item = new QStandardItem();
+//    items.push_back(item);
+
 }
 
 /*
@@ -92,7 +119,8 @@ void p_data::on_add_clicked()
 {
     QString s = QFileDialog::getExistingDirectory(this, "open file dialog", "/home/test");
     qDebug() << "filenames: " << s;
-    ui->treeView->setRootIndex(data_model->index(s));
+
+    //ui->treeView->setRootIndex(data_model->index(s));
 }
 
 void p_data::on_mkdir_clicked()
@@ -229,12 +257,15 @@ void p_data::on_burner_setting_clicked()
 
 void p_data::on_start_burner_clicked()
 {
+
     qDebug("%s %d %d %d", pro.get_burn_speed().toLatin1().data(), pro.get_burn_append(), pro.get_burn_proof(), pro.get_simulation());
     if (ui->burner_setting->text() == "burner setting")
     {
         pro.set_burn_disk(ui->comboBox_2->currentText());
+
     }else {
         pro.set_copy_iso(ui->comboBox_2->currentText());
+
     }
 }
 

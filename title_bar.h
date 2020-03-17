@@ -10,6 +10,7 @@
 
 #include "property.h"
 
+
 class TitleBar : public QWidget
 {
     Q_OBJECT
@@ -38,10 +39,12 @@ private slots:
     void popup();
     void clean();
     void md5();
+    void filter();
     void help();
     void about();
     void clean_exit();
     void check_exit();
+    void filter_exit();
     void clean_ok();
     void check_ok();
 
@@ -57,8 +60,14 @@ private:
     QComboBox *check_combo;
     QCheckBox *md5_check;
     QLineEdit *md5_file;
+
+    QCheckBox *hide_check;
+    QCheckBox *link_check;
+    QCheckBox *deform_link;
+
     QDialog *clean_dialog;
     QDialog *check_dialog;
+    QDialog *filter_dialog;
     QLabel *m_pIconLabel;
     QLabel *m_pTitleLabel;
     QToolButton *m_pMenubutton;

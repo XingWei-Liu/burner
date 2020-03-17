@@ -14,6 +14,10 @@ public:
     void set_md5_check(bool ret);
     void set_md5_file(QString ret);
 
+    void set_filter_hide(bool ret);
+    void set_filter_link(bool ret);
+    void set_filter_deform_link(bool ret);
+
     void set_burn_speed(QString ret);
     void set_burn_append(bool ret);
     void set_burn_proof(bool ret);
@@ -29,6 +33,10 @@ public:
     QString get_check_disk();
     bool get_md5_check();
     QString get_md5_file();
+
+    bool get_filter_hide();
+    bool get_filter_link();
+    bool get_filter_deform_link();
 
     QString get_burn_speed();
     bool get_burn_append();
@@ -47,6 +55,10 @@ private:
     QString check_disk;
     bool md5_check;
     QString md5_file;
+
+    bool filter_hide;
+    bool filter_link;
+    bool filter_deform_link;
 
     QString burn_speed;
     bool burn_append;

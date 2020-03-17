@@ -4,6 +4,7 @@
 #include <QTableWidget>
 #include <QPushButton>
 #include <QLabel>
+#include <QDebug>
 
 #include "widget.h"
 #include "ui_widget.h"
@@ -18,7 +19,7 @@ Widget::Widget(QWidget *parent) :
     create_ui();
 
     ui->setupUi(this);
-    setWindowIcon(QIcon("/home/test/qt-workspace/burner-test/pic/logo.ico"));
+    setWindowIcon(QIcon(":pic/logo.png"));
     this->setWindowTitle("Kylin-burner");
 
 }
@@ -40,15 +41,23 @@ void Widget::create_ui()
 
     tabWidget = new QStackedWidget(this);
 
-    QWidget *back = new QWidget(this);
-    back->resize(600,125);
-    back->setStyleSheet("QWidget{border-image: url(:/new/prefix1/pic/icon-侧边背景.png);border:none;background-repeat: no-repeat;background:transparent;}");
+    /*QWidget *back = new QWidget(this);
+    //back->resize(600,125);
+    back->setAutoFillBackground(true);
+    back->setStyleSheet("QWidget{background-image: url(:/new/prefix1/pic/icon-侧边背景.png);background-position: center;border:none;background-repeat: no-repeat;}");*/
 
+    QLabel *label = new QLabel();
+    label->setFixedSize(150, 600);
+    QPixmap bgImage("/home/test/qt-workspace/burner-test/pic/icon-侧边背景.png");
+    //label->setStyleSheet("QLabel{background-image: url(:/new/prefix1/pic/icon-侧边背景.png);background-position: center;border:none;background-repeat:repeat-xy;}");
+    label->setPixmap(bgImage);
+    label->setScaledContents(true);
 
-    data_burner = new QPushButton("data burner", this);
+    data_burner = new QPushButton(label);
+    data_burner->setText("data burner");
     data_burner->setFixedSize(125, 50);
     data_burner->setStyleSheet("QPushButton{background-image: url(:/new/prefix1/pic/icon-数据刻录-默认.png);"
-                               "background-color:rgba(87, 137, 217, 0.2);"
+                               "background-color:rgba(87, 137, 217,0.2);"
                                "background-repeat: no-repeat;"
                                "background-position:left;"
                                "color:rgb(65, 127, 249);font: 14px;border-radius: 6px;}"
@@ -63,25 +72,27 @@ void Widget::create_ui()
                                "background-position:left;"
                                "border:none;color:rgb(65, 127, 249);font: 14px;border-radius: 6px;}");
 
-    image_burner = new QPushButton("image burner");
+    image_burner = new QPushButton(label);
+    image_burner->setText("image burner");
     image_burner->setFixedSize(125, 50);
     image_burner->setStyleSheet("QPushButton{background-image: url(:/new/prefix1/pic/icon-镜像刻录-默认.png);"
-                                "background-color:transparent;"
+                                "background-color: transparent;"
                                 "background-repeat: no-repeat;"
                                 "background-position:left;"
-                                "color:rgb(65, 127, 249);font: 14px;border-radius: 6px;}"
+                                "color:rgb(65, 127, 249);font: 14px;border-radius: 6px;text-align: right;}"
                            "QPushButton:hover{background-image: url(:/new/prefix1/pic/icon-镜像刻录-悬停点击.png);"
                                 "background-color:rgba(87, 137, 217, 0.15);"
                                 "background-repeat: no-repeat;"
                                 "background-position:left;"
-                                "color:rgb(65, 127, 249);font: 14px;border-radius: 6px;}"
+                                "color:rgb(65, 127, 249);font: 14px;border-radius: 6px;text-align: right;}"
                            "QPushButton:pressed{background-image: url(:/new/prefix1/pic/icon-镜像刻录-悬停点击.png);"
                                 "background-color:rgba(87, 137, 217, 0.2);"
                                 "background-repeat: no-repeat;"
                                 "background-position:left;"
                                 "border:none;"
-                                "color:rgb(65, 127, 249);font: 14px;border-radius: 6px;}");
-    copy_image = new QPushButton("copy image");
+                                "color:rgb(65, 127, 249);font: 14px;border-radius: 6px;text-align: right;}");
+    copy_image = new QPushButton(label);
+    copy_image->setText("copy image");
     copy_image->setFixedSize(125, 50);
     copy_image->setStyleSheet("QPushButton{background-image: url(:/new/prefix1/pic/icon-光盘复制-默认.png);"
                               "background-color:transparent;"
@@ -100,18 +111,20 @@ void Widget::create_ui()
                               "border:none;"
                               "color:rgb(65, 127, 249);font: 14px;border-radius: 6px;}");
 
-    QVBoxLayout *vLayout = new QVBoxLayout();
-    vLayout->addSpacing(50);
+    QVBoxLayout *vLayout = new QVBoxLayout(label);
+    vLayout->addSpacing(0);
     vLayout->addWidget(data_burner);
     vLayout->addSpacing(20);
     vLayout->addWidget(image_burner);
     vLayout->addSpacing(20);
     vLayout->addWidget(copy_image);
     vLayout->addStretch();
-    back->setLayout(vLayout);
+
+//    QVBoxLayout *v1Layout = new QVBoxLayout();
+//    v1Layout->addWidget(label);
 
     QHBoxLayout *hLayout = new QHBoxLayout();
-    hLayout->addWidget(back);
+    hLayout->addWidget(label);
     hLayout->addWidget(tabWidget);
 
     QVBoxLayout *pLayout = new QVBoxLayout();
